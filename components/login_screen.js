@@ -2,14 +2,18 @@ import { useState,useEffect } from "react";
 import { View,Text } from "react-native";
 import { TextInput, Avatar, Button } from "react-native-paper";
 import { styles } from "../assets/style/allstyle";
-
+//firebase
+import {getAuth, createUserWithEmailAndPassword,signInWithEmailAndPassword} from 'firebase/auth'
+import {initializeApp} from 'firebase/app'
+import { firebaseConfig } from "../firebaseConfig";
 
 export default function LoginScreen(){
+
 
     const [email, setEmail] = useState("");
     const [password, setPassword] = useState("");
     const [message, setMessage] = useState('');
-
+    const [showPass, setShowPass] = useState('');
     return(
         <View style={styles.container}>
             <Avatar.Image
@@ -27,9 +31,10 @@ export default function LoginScreen(){
                 <TextInput
                     style={{ marginTop: 20 }}
                     label="Contraseña"
-                    secureTextEntry//={!showPass}
+                    secureTextEntry ={!showPass}
                     onChangeText={(password) => setPassword(password)}
                     value={password}
+                    right={<TextInput.Icon icon={showPass ? "eye" : "eye-off"} onPress={() =>setShowPass (!showPass)}/>}
                 />
                 <Button
                     style={{ marginTop: 20, backgroundColor: 'black' }}
